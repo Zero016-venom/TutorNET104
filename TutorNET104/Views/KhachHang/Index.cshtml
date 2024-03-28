@@ -5,8 +5,11 @@
 }
 
 <h1>Index</h1>
-
-<p>
+<form action="/KhachHang/Index" method="get">
+    <label for="searchBox">Tên:</label>
+    <input type="text" id="searchBox" name="name">
+    <input type="submit" value="Search">
+</form>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">

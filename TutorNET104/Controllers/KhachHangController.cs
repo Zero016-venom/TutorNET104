@@ -15,10 +15,15 @@ namespace TutorNET104.Controllers
         }
 
         // GET: KhachHangController
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
-            var khachHangs = _context.KhachHangs.ToList();
-            return View(khachHangs);
+            var listKH = _context.KhachHangs.Where(p => p.Ten.Contains(name)).ToList();
+            var khachhangs = _context.KhachHangs.ToList(); // Lấy ra từ DB thông qua DBSet 
+            // Truyền dữ liệu sang View
+            if (listKH.Count != 0) 
+                return View(listKH);
+
+            return View(khachhangs);
         }
 
         // GET: KhachHangController/Details/5
@@ -106,5 +111,7 @@ namespace TutorNET104.Controllers
         //        return View();
         //    }
         //}
+
+        
     }
 }
