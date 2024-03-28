@@ -37,13 +37,14 @@ namespace TutorNET104.Controllers
 
         // POST: KhachHangController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(KhachHang khachHang)
         {
             try
             {
                 _context.KhachHangs.Add(khachHang);
-                return RedirectToAction(nameof(Index));
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "KhachHang"); 
             }
             catch
             {
@@ -52,45 +53,58 @@ namespace TutorNET104.Controllers
         }
 
         // GET: KhachHangController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string sdt)
         {
-            return View();
+            var editKH = _context.KhachHangs.Find(sdt);
+            return View(editKH);
         }
 
         // POST: KhachHangController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, KhachHang khachHang)
+        public ActionResult Edit(KhachHang khachHang) //Action nay thuc hien viec sua theo data nhap vao
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var editKH = _context.KhachHangs.Find(khachHang.Sdt); // TIm chinh xac toi doi tuong can sua
+                editKH.Email = khachHang.Email;
+                editKH.DiaChi = khachHang.DiaChi;
+                editKH.Status = khachHang.Status;
+                editKH.Point = khachHang.Point;
+                editKH.Ten = khachHang.Ten;
+
+                _context.KhachHangs.Update(editKH);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return BadRequest();
             }
         }
 
         // GET: KhachHangController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string sdt)
         {
-            return View();
+            var deleteKH = _context.KhachHangs.Find(sdt);
+            _context.KhachHangs.Remove(deleteKH);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // POST: KhachHangController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

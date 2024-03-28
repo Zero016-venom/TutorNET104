@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new { sdt = item.Sdt }) |
                 @Html.ActionLink("Details", "Details", new { sdt = item.Sdt }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { sdt = item.Sdt })
             </td>
         </tr>
 }
