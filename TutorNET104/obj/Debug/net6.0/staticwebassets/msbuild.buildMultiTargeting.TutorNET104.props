@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\TutorNET104.props" />
+</Project>
